@@ -136,7 +136,46 @@
     }
     return settings.unsupportSetting;
 }
-
+- (NIMKitSetting *)settingWithMessageType:(NIMMessageType)messageType message:(NIMMessage *)message{
+    NIMKitSettings *settings = message.isOutgoingMsg? self.rightBubbleSettings : self.leftBubbleSettings;
+    switch (messageType) {
+        case NIMMessageTypeText:
+            return settings.textSetting;
+        case NIMMessageTypeImage:
+            return settings.imageSetting;
+        case NIMMessageTypeLocation:
+            return settings.locationSetting;
+        case NIMMessageTypeAudio:
+            return settings.audioSetting;
+        case NIMMessageTypeVideo:
+            return settings.videoSetting;
+        case NIMMessageTypeFile:
+            return settings.fileSetting;
+        case NIMMessageTypeTip:
+            return settings.tipSetting;
+        case NIMMessageTypeRobot:
+            return settings.robotSetting;
+        case NIMMessageTypeNotification:
+        {
+            NIMNotificationObject *object = (NIMNotificationObject *)message.messageObject;
+            switch (object.notificationType)
+            {
+                case NIMNotificationTypeTeam:
+                    return settings.teamNotificationSetting;
+                case NIMNotificationTypeChatroom:
+                    return settings.chatroomNotificationSetting;
+                case NIMNotificationTypeNetCall:
+                    return settings.netcallNotificationSetting;
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
+    return settings.unsupportSetting;
+}
 - (NIMKitSetting *)repliedSetting:(NIMMessage *)message
 {
     NIMKitSettings *settings = message.isOutgoingMsg? self.rightBubbleSettings : self.leftBubbleSettings;
@@ -168,6 +207,7 @@
     [self applyDefaultImageSettings];
     [self applyDefaultLocationSettings];
     [self applyDefaultTipSettings];
+    [self applyDefaultRobotSettings];
     [self applyDefaultUnsupportSettings];
     [self applyDefaultTeamNotificationSettings];
     [self applyDefaultSuperTeamNotificationSettings];
@@ -246,7 +286,14 @@
     _tipSetting.normalBackgroundImage    = backgroundImage;
     _tipSetting.highLightBackgroundImage = backgroundImage;
 }
-
+- (void)applyDefaultRobotSettings
+{
+    _robotSetting = [[NIMKitSetting alloc] init:_isRight];
+    _robotSetting.contentInsets = _isRight? UIEdgeInsetsFromString(@"{11,11,9,15}") : UIEdgeInsetsFromString(@"{11,15,9,9}");
+    _robotSetting.textColor = _isRight? NIMKit_UIColorFromRGB(0x13131B) : NIMKit_UIColorFromRGB(0x13131B);
+    _robotSetting.font      = [UIFont systemFontOfSize:14];
+    _robotSetting.showAvatar = YES;
+}
 - (void)applyDefaultUnsupportSettings
 {
     _unsupportSetting = [[NIMKitSetting alloc] init:_isRight];

@@ -33,7 +33,6 @@
 
 @property (nonatomic, strong) NIMInputAudioRecordIndicatorView *audioRecordIndicator;
 @property (nonatomic, assign) NIMAudioRecordPhase recordPhase;
-@property (nonatomic, weak) id<NIMSessionConfig> inputConfig;
 @property (nonatomic, weak) id<NIMInputDelegate> inputDelegate;
 @property (nonatomic, weak) id<NIMInputActionDelegate> actionDelegate;
 
@@ -58,6 +57,8 @@
         _atCache = [[NIMInputAtCache alloc] init];
         _inputConfig = config;
         self.backgroundColor = [UIColor whiteColor];
+        ///触发表情缓存，如果在使用时才读取图片会卡顿
+        [NIMInputEmoticonContainerView cacheEmoticon];
     }
     return self;
 }
@@ -563,6 +564,14 @@
             case NIMSessionTypeTeam:
             {
                 NIMContactTeamMemberSelectConfig *config = [[NIMContactTeamMemberSelectConfig alloc] init];
+                if ([self.inputConfig respondsToSelector:@selector(enableRobot)])
+                {
+                    config.enableRobot = [self.inputConfig enableRobot];
+                }
+                else
+                {
+                    config.enableRobot = YES;
+                }
                 config.teamType = NIMKitTeamTypeNomal;
                 config.needMutiSelected = NO;
                 config.teamId = self.session.sessionId;
@@ -592,7 +601,18 @@
                 break;
             case NIMSessionTypeP2P:
                 break;
-            case NIMSessionTypeChatroom:
+            case NIMSessionTypeChatroom:{
+                if (([self.inputConfig respondsToSelector:@selector(enableRobot)] && self.inputConfig.enableRobot) || [NIMSDK sharedSDK].isUsingDemoAppKey)
+                {
+                    NIMContactRobotSelectConfig *config = [[NIMContactRobotSelectConfig alloc] init];
+                    config.needMutiSelected = NO;
+                    NIMContactSelectViewController *vc = [[NIMContactSelectViewController alloc] initWithConfig:config];
+                    vc.delegate = self;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [vc show];
+                    });
+                }
+            }
                 break;
             default:
                 break;

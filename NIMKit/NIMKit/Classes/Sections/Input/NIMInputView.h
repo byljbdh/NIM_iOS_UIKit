@@ -71,5 +71,6 @@ typedef NS_ENUM(NSInteger, NIMAudioRecordPhase) {
 
 - (void)refreshReplyedContent:(NIMMessage *)message;
 - (void)dismissReplyedContent;
+@property (nonatomic, weak) id<NIMSessionConfig> inputConfig;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "NIMKitSetting.h"
-
+#import <NIMSDK/NIMGlobalDefs.h>
 @class NIMKitSettings;
 @class NIMMessage;
 
@@ -112,6 +112,7 @@ typedef NS_ENUM(NSInteger,NIMKitAvatarType) {
 
 - (NIMKitSetting *)setting:(NIMMessage *)message;
 
+- (NIMKitSetting *)settingWithMessageType:(NIMMessageType)messageType message:(NIMMessage *)message;
 
 /*被回复消息取到配置*/
 
@@ -162,6 +163,10 @@ typedef NS_ENUM(NSInteger,NIMKitAvatarType) {
  */
 @property (nonatomic, strong) NIMKitSetting *tipSetting;
 
+/**
+ *  机器人类型消息设置
+ */
+@property (nonatomic, strong) NIMKitSetting *robotSetting;
 /**
  *  无法识别类型消息设置
  */

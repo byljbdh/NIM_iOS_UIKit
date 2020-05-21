@@ -10,6 +10,8 @@
 #import "NIMSessionPrivateProtocol.h"
 #import "NIMSessionConfigurateProtocol.h"
 
+@class NIMKitMediaFetcher;
+
 @interface NIMSessionInteractorImpl : NSObject<NIMSessionInteractor,NIMSessionLayoutDelegate>
 
 - (instancetype)initWithSession:(NIMSession *)session
@@ -21,4 +23,20 @@
 
 @property(nonatomic,strong) id<NIMSessionLayout>     layout;
 
+
+@property (nonatomic,strong) NIMSession  *session;
+
+@property (nonatomic,strong) id<NIMSessionConfig> sessionConfig;
+
+@property (nonatomic,strong) NIMKitMediaFetcher *mediaFetcher;
+
+@property (nonatomic,strong) NSMutableArray *pendingChatroomModels;
+
+@property (nonatomic,strong) NSMutableArray *pendingAudioMessages;
+
+@property (nonatomic,assign) NIMKitSessionState sessionState;
+
+@property (nonatomic,strong) NIMMessage *referenceMessage;
+
+- (void)processChatroomMessageModels;
 @end

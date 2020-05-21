@@ -32,5 +32,9 @@
 @property (nonatomic, weak)    id<NIMInputEmoticonProtocol>  delegate;
 @property (nonatomic, weak)    id<NIMSessionConfig> config;
 
+@property (nonatomic, assign) BOOL hideSep;
+- (void)resetBgColor:(UIColor *)color;
+///触发表情缓存，如果在使用时才读取图片会卡顿
++ (void)cacheEmoticon;
 @end
 

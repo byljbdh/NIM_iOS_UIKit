@@ -54,6 +54,19 @@
     if (members) {
         [members removeAllObjects];
     }
+    if (self.enableRobot) {
+        NSMutableArray *robotsArr = @[].mutableCopy;
+        NSMutableArray *robot_data = [NIMSDK sharedSDK].robotManager.allRobots.mutableCopy;
+        for (NIMRobot *robot in robot_data) {
+            [robotsArr addObject:robot.userId];
+        }
+        NSArray *robot_uids = [self filterData:robotsArr];
+        for (NSString *uid in robot_uids) {
+            NIMGroupUser *user = [[NIMGroupUser alloc] initWithUserId:uid];
+            [members addObject:user];
+        }
+        groupedData.specialMembers = members;
+    }
     if (handler) {
         handler(groupedData.contentDic, groupedData.sectionTitles);
     }
@@ -78,6 +91,71 @@
 
 @end
 
+@implementation NIMContactRobotSelectConfig
+
+
+- (BOOL)isMutiSelected{
+    return self.needMutiSelected;
+}
+
+- (NSString *)title{
+    return @"选择机器人";
+}
+
+
+- (NSInteger)maxSelectedNum{
+    if (self.needMutiSelected) {
+        return self.maxSelectMemberCount? self.maxSelectMemberCount : NSIntegerMax;
+    }else{
+        return 1;
+    }
+}
+
+- (NSString *)selectedOverFlowTip{
+    return @"选择超限";
+}
+
+- (void)getContactData:(NIMContactDataProviderHandler)handler {
+    NIMGroupedData *groupedData = [[NIMGroupedData alloc] init];
+    NSMutableArray *robotsArray = @[].mutableCopy;
+    NSMutableArray *robot_data = [NIMSDK sharedSDK].robotManager.allRobots.mutableCopy;
+    NSMutableArray *members = @[].mutableCopy;
+    
+    for (NIMRobot *robot in robot_data) {
+        [robotsArray addObject:robot.userId];
+    }
+    NSArray *robot_uids = [self filterData:robotsArray];
+    if (members) {
+        [members removeAllObjects];
+    }
+    for (NSString *uid in robot_uids) {
+        NIMGroupUser *user = [[NIMGroupUser alloc] initWithUserId:uid];
+        [members addObject:user];
+    }
+    groupedData.specialMembers = members;
+    if (handler) {
+        handler(groupedData.contentDic, groupedData.sectionTitles);
+    }
+}
+
+- (NSArray *)filterData:(NSMutableArray *)data{
+    if (data) {
+        if ([self respondsToSelector:@selector(filterIds)]) {
+            NSArray *ids = [self filterIds];
+            [data removeObjectsInArray:ids];
+        }
+        return data;
+    }
+    return nil;
+}
+
+- (NIMKitInfo *)getInfoById:(NSString *)selectedId {
+    NIMKitInfo *info = nil;
+    info = [[NIMKit sharedKit] infoByUser:selectedId option:nil];
+    return info;
+}
+
+@end
 @implementation NIMContactTeamMemberSelectConfig : NSObject
 
 - (NSInteger)maxSelectedNum{
@@ -150,6 +228,19 @@
     groupedData.members = membersArr;
     if (membersArr) {
         [membersArr removeAllObjects];
+    }
+    if (self.enableRobot) {
+        NSMutableArray *robotsArray = @[].mutableCopy;
+        NSMutableArray *robot_data = [NIMSDK sharedSDK].robotManager.allRobots.mutableCopy;
+        for (NIMRobot *robot in robot_data) {
+            [robotsArray addObject:robot.userId];
+        }
+        NSArray *robot_uids = [self filterData:robotsArray];
+        for (NSString *uid in robot_uids) {
+            NIMGroupUser *user = [[NIMGroupUser alloc] initWithUserId:uid];
+            [membersArr addObject:user];
+        }
+        groupedData.specialMembers = membersArr;
     }
     if (handler) {
         handler(groupedData.contentDic, groupedData.sectionTitles);
@@ -233,6 +324,20 @@
     groupedData.members = members;
     if (members) {
         [members removeAllObjects];
+    }
+    if (self.enableRobot) {
+        NSMutableArray *robotsArray = @[].mutableCopy;
+        NSMutableArray *robot_data = [NIMSDK sharedSDK].robotManager.allRobots.mutableCopy;
+        for (NIMRobot *robot in robot_data) {
+            [robotsArray addObject:robot.userId];
+        }
+        NSArray *robot_uids = [self filterData:robotsArray];
+        
+        for (NSString *uid in robot_uids) {
+            NIMGroupUser *user = [[NIMGroupUser alloc] initWithUserId:uid];
+            [members addObject:user];
+        }
+        groupedData.specialMembers = members;
     }
     if (handler) {
         handler(groupedData.contentDic, groupedData.sectionTitles);

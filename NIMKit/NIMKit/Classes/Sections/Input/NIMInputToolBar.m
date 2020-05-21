@@ -70,6 +70,7 @@
         sep.nim_size = CGSizeMake(self.nim_width, .5f);
         sep.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:sep];
+        self.topSep = sep;
         
         //底部分割线
         _bottomSep = [[UIView alloc] initWithFrame:CGRectZero];

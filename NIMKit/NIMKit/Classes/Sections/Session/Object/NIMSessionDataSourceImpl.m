@@ -11,13 +11,6 @@
 
 @interface NIMSessionDataSourceImpl()
 
-@property (nonatomic,strong) NIMSession *session;
-
-@property (nonatomic,strong) NIMSessionMsgDatasource *dataSource;
-
-@property (nonatomic,strong) NSMutableArray *pendingMessages;   //缓存的插入消息,聊天室需要在另外个线程计算高度,减少UI刷新
-
-@property (nonatomic,strong) id<NIMSessionConfig> sessionConfig;
 
 @end
 

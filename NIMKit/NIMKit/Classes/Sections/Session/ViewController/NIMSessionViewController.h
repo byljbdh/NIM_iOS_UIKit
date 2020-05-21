@@ -14,6 +14,7 @@
 #import "NIMInputView.h"
 #import "NIMAdvanceMenu.h"
 
+@class NIMSessionConfigurator;
 @interface NIMSessionViewController : UIViewController<NIMSessionInteractorDelegate,NIMInputActionDelegate,NIMMessageCellDelegate,NIMChatManagerDelegate,NIMConversationManagerDelegate,NIMChatExtendManagerDelegate>
 
 @property (nonatomic, strong)  UITableView *tableView;
@@ -214,5 +215,44 @@
  * 跳转到对应消息
  */
 - (void)scrollToMessage:(NIMMessage *)message;
+
+//.m挪过来的
+- (void)setupNav;
+- (void)setUpTitleView;
+- (id<NIMConversationManager>)conversationManager;
+- (void)uiCheckReceipt;
+/**
+ 输入view初始化方法
+ */
+- (void)setupInputView;
+
+/**
+ 是否需要显示输入框
+
+ @return 是否需要显示输入框
+ */
+- (BOOL)shouldShowInputView;
+
+//是否需要监听感应器事件
+- (BOOL)needProximityMonitor;
+
+/**
+ 布局tableview
+ */
+- (void)setupTableView;
+
+/**
+ 配置器
+ */
+- (void)setupConfigurator;
+- (BOOL)shouldAddListenerForNewMsg;
+/**
+ 添加监听
+ */
+- (void)addListener;
+
+- (void)removeListener;
+//config
+@property (nonatomic,strong)    NIMSessionConfigurator *configurator;
 
 @end

@@ -11,7 +11,6 @@
 
 @interface NIMGrowingTextView()<UITextViewDelegate>
 
-@property (nonatomic,strong) NIMGrowingInternalTextView *textView;
 
 @property (nonatomic,assign) CGFloat maxHeight;
 
@@ -176,9 +175,9 @@
             }
         }
     } else {
-        if (_previousTextHeight != _textView.contentSize.height) {
+        if (_previousTextHeight != self.textView.contentSize.height) {
             [self.textView flashScrollIndicators];
-            _previousTextHeight = _textView.contentSize.height;
+            _previousTextHeight = self.textView.contentSize.height;
         }
     }
     

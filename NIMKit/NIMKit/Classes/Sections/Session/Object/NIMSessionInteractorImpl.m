@@ -35,19 +35,6 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
 
 @interface NIMSessionInteractorImpl()<NIMLocationViewControllerDelegate,NIMMediaManagerDelegate>
 
-@property (nonatomic,strong) NIMSession  *session;
-
-@property (nonatomic,strong) id<NIMSessionConfig> sessionConfig;
-
-@property (nonatomic,strong) NIMKitMediaFetcher *mediaFetcher;
-
-@property (nonatomic,strong) NSMutableArray *pendingChatroomModels;
-
-@property (nonatomic,strong) NSMutableArray *pendingAudioMessages;
-
-@property (nonatomic,assign) NIMKitSessionState sessionState;
-
-@property (nonatomic,strong) NIMMessage *referenceMessage;
 
 @end
 

@@ -24,7 +24,7 @@
 - (void)selectTabIndex:(NSInteger)index;
 
 - (void)loadCatalogs:(NSArray*)emoticonCatalogs;
-
+- (void)resetSepColor:(UIColor *)sep_Color;
 @end
 
 

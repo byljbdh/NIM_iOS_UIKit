@@ -15,6 +15,10 @@
 
 @property (nonatomic,strong)  NIMInputView *inputView;
 
+@property (nonatomic,strong)  NIMSession  *session;
+
+@property (nonatomic,strong)  UIRefreshControl *refreshControl;
+
 - (instancetype)initWithSession:(NIMSession *)session
                          config:(id<NIMSessionConfig>)sessionConfig;
 

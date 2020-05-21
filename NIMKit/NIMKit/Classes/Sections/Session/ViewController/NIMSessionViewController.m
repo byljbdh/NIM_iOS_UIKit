@@ -35,7 +35,7 @@
 
 @property (nonatomic,strong)    NSIndexPath *lastVisibleIndexPathBeforeRotation;
 
-@property (nonatomic,strong)    NIMSessionConfigurator *configurator;
+//@property (nonatomic,strong)    NIMSessionConfigurator *configurator;
 
 @property (nonatomic,strong)    UITapGestureRecognizer *tableViewTapGesture;
 

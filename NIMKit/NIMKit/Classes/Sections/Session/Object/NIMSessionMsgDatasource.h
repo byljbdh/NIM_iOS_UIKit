@@ -67,4 +67,6 @@
 //是否显示选择
 - (void)refreshMessageModelShowSelect:(BOOL)isShow;
 
+/**为了不污染这个类,交由外界重写这个方法*/
+- (NSArray<NIMMessageModel *> *)modelsWithMessages:(NSArray<NIMMessage *> *)messages;
 @end

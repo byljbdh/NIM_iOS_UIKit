@@ -107,7 +107,12 @@ const CGFloat NIMInputLineBoarder = .5f;
     }
     _sendButton.nim_right = (int)self.nim_width;
 }
-
+- (void)resetSepColor:(UIColor *)sep_Color{
+    self.layer.borderColor = sep_Color.CGColor;
+    for(UIView *sep in _seps){
+        sep.backgroundColor = sep_Color;
+    }
+}
 
 @end
 

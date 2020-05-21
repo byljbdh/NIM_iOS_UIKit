@@ -57,6 +57,10 @@ typedef void(^NIMContactDataProviderHandler)(NSDictionary *contentDic, NSArray *
 - (BOOL)showSelectDetail;
 
 /**
+ *  是否要加入机器人
+ */
+- (BOOL)enableRobot;
+/**
  *  提供联系人选择期的昵称，title信息
  */
 - (void)getContactData:(NIMContactDataProviderHandler)handler;
@@ -82,6 +86,7 @@ typedef void(^NIMContactDataProviderHandler)(NSDictionary *contentDic, NSArray *
 @property (nonatomic,copy) NSArray *filterIds;
 
 @property (nonatomic,assign) BOOL showSelectDetail;
+@property (nonatomic,assign) BOOL enableRobot;
 
 @end
 
@@ -105,9 +110,27 @@ typedef void(^NIMContactDataProviderHandler)(NSDictionary *contentDic, NSArray *
 @property (nonatomic,copy) NSArray *filterIds;
 
 @property (nonatomic,assign) BOOL showSelectDetail;
+@property (nonatomic,assign) BOOL enableRobot;
 
 @end
 
+
+/**
+ *  内置配置-选择机器人
+ */
+@interface NIMContactRobotSelectConfig : NSObject<NIMContactSelectConfig>
+
+@property (nonatomic,assign) BOOL needMutiSelected;
+
+@property (nonatomic,assign) NSInteger maxSelectMemberCount;
+
+@property (nonatomic,copy) NSArray *alreadySelectedMemberId;
+
+@property (nonatomic,copy) NSArray *filterIds;
+
+@property (nonatomic,assign) BOOL showSelectDetail;
+
+@end
 
 /**
  *  内置配置-选择群
@@ -125,5 +148,6 @@ typedef void(^NIMContactDataProviderHandler)(NSDictionary *contentDic, NSArray *
 @property (nonatomic,copy) NSArray *filterIds;
 
 @property (nonatomic,assign) BOOL showSelectDetail;
+@property (nonatomic,assign) BOOL enableRobot;
 
 @end

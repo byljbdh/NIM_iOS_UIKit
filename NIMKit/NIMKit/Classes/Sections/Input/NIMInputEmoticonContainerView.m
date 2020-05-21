@@ -348,6 +348,27 @@ NSInteger NIMCustomPageViewHeight    = 159;
     }
     return _tabView;
 }
-
+- (void)resetBgColor:(UIColor *)color{
+    self.backgroundColor = color;
+    self.emoticonPageView.backgroundColor = color;
+    _tabView.backgroundColor = color;
+}
+- (void)setHideSep:(BOOL)hideSep{
+    _hideSep = hideSep;
+    if(hideSep){
+        [_tabView resetSepColor:UIColor.whiteColor];
+    }
+}
++ (void)cacheEmoticon {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NIMInputEmoticonCatalog *emoticonCatalog = [[NIMInputEmoticonManager sharedManager] emoticonCatalog:NIMKit_EmojiCatalog];
+            for (NIMInputEmoticon *data in emoticonCatalog.emoticons) {
+                [UIImage nim_emoticonInKit:data.filename];
+            }
+        });
+    });
+}
 @end
 

@@ -171,4 +171,8 @@
  */
 - (BOOL)clearThreadMessageAfterSent;
 
+/**
+ *  是否开启机器人
+ */
+- (BOOL)enableRobot;
 @end

@@ -17,24 +17,28 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        self.backgroundColor = NIMKit_UIColorFromRGB(0x1A1921);
         _avatarImageView = [[NIMAvatarImageView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         [self addSubview:_avatarImageView];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nameLabel.backgroundColor = [UIColor clearColor];
+        _nameLabel.backgroundColor = NIMKit_UIColorFromRGB(0x1A1921);
         _nameLabel.font            = [UIFont systemFontOfSize:15.f];
+        _nameLabel.textColor =  UIColor.whiteColor;
         [self addSubview:_nameLabel];
         
         _messageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _messageLabel.backgroundColor = [UIColor clearColor];
-        _messageLabel.font            = [UIFont systemFontOfSize:14.f];
-        _messageLabel.textColor       = [UIColor lightGrayColor];
+        _messageLabel.backgroundColor = NIMKit_UIColorFromRGB(0x1A1921);
+        _messageLabel.font            = [UIFont systemFontOfSize:12.f];
+        _messageLabel.textColor       = NIMKit_UIColorFromRGB(0x858585);
         [self addSubview:_messageLabel];
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _timeLabel.backgroundColor = [UIColor clearColor];
-        _timeLabel.font            = [UIFont systemFontOfSize:14.f];
-        _timeLabel.textColor       = [UIColor lightGrayColor];
+        _timeLabel.backgroundColor = NIMKit_UIColorFromRGB(0x1A1921);
+        _timeLabel.font            = [UIFont systemFontOfSize:11.f];
+        _timeLabel.textColor       = NIMKit_UIColorFromRGB(0x858585);
         [self addSubview:_timeLabel];
         
         _badgeView = [NIMBadgeView viewWithBadgeTip:@""];

@@ -21,9 +21,7 @@
     CGFloat _inputViewHeight;
 }
 
-@property (nonatomic,strong)  UIRefreshControl *refreshControl;
 
-@property (nonatomic,strong)  NIMSession  *session;
 
 @property (nonatomic,strong)  id<NIMSessionConfig> sessionConfig;
 
@@ -104,51 +102,116 @@
     }
     self.inputView.nim_bottom = superView.nim_height - safeAreaInsets.bottom;
 }
-
 - (void)adjustTableView
 {
-    CGRect rect = self.tableView.frame;
     
-    //tableview 的位置
-    UIView *superView = self.tableView.superview;
-    UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
-    if (@available(iOS 11.0, *))
-    {
-        safeAreaInsets = superView.safeAreaInsets;
-    }
+    //输入框是否弹起
+    BOOL inputViewUp = NO;
+    if ([self.inputView isKindOfClass:NSClassFromString(@"NIMInputView")]) {
+        NIMInputView *view = (NIMInputView *)self.inputView;
+        switch (view.status)
+        {
+            case NIMInputStatusText:
+                inputViewUp = [NIMKitKeyboardInfo instance].isVisiable;
+                break;
+            case NIMInputStatusAudio:
+                inputViewUp = NO;
+                break;
+            case NIMInputStatusMore:
+            case NIMInputStatusEmoticon:
+                inputViewUp = YES;
+            default:
+                break;
+        }
     
-    CGFloat containerSafeHeight = self.tableView.superview.frame.size.height - safeAreaInsets.bottom;
-    
-    rect.size.height = containerSafeHeight - self.inputView.toolBar.nim_height;
-    
-    
-    //tableview 的内容 inset
-    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-    CGFloat visiableHeight = 0;
-    if (@available(iOS 11.0, *))
-    {
-        contentInsets = self.tableView.adjustedContentInset;
-    }
-    else
-    {
-        contentInsets = self.tableView.contentInset;
-    }
-    
-    //如果气泡过少，少于总高度，输入框视图需要顶到最后一个气泡的下面。
-    visiableHeight = visiableHeight + self.tableView.contentSize.height + contentInsets.top + contentInsets.bottom;
-    visiableHeight = MIN(visiableHeight, rect.size.height);
-    
-    rect.origin.y    = containerSafeHeight - visiableHeight - self.inputView.nim_height;
-    rect.origin.y    = rect.origin.y > 0? 0 : rect.origin.y;
+        self.tableView.userInteractionEnabled = !inputViewUp;
+        CGRect rect = self.tableView.frame;
+        
+        //tableview 的位置
+        UIView *superView = self.tableView.superview;
+        UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
+        if (@available(iOS 11.0, *))
+        {
+            safeAreaInsets = superView.safeAreaInsets;
+        }
+        
+        CGFloat containerSafeHeight = self.tableView.superview.frame.size.height - safeAreaInsets.bottom;
+        
+        rect.size.height = containerSafeHeight - view.toolBar.nim_height;
     
     
-    BOOL tableChanged = !CGRectEqualToRect(self.tableView.frame, rect);
-    if (tableChanged)
-    {
-        [self.tableView setFrame:rect];
-        [self.tableView nim_scrollToBottom:YES];
+        //tableview 的内容 inset
+        UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+        CGFloat visiableHeight = 0;
+        if (@available(iOS 11.0, *))
+        {
+            contentInsets = self.tableView.adjustedContentInset;
+        }
+        else
+        {
+            contentInsets = self.tableView.contentInset;
+        }
+        
+        //如果气泡过少，少于总高度，输入框视图需要顶到最后一个气泡的下面。
+        visiableHeight = visiableHeight + self.tableView.contentSize.height + contentInsets.top + contentInsets.bottom;
+        visiableHeight = MIN(visiableHeight, rect.size.height);
+        
+        rect.origin.y    = containerSafeHeight - visiableHeight - self.inputView.nim_height;
+        rect.origin.y    = rect.origin.y > 0? 0 : rect.origin.y;
+        
+        
+        BOOL tableChanged = !CGRectEqualToRect(self.tableView.frame, rect);
+        if (tableChanged)
+        {
+            [self.tableView setFrame:rect];
+            [self.tableView nim_scrollToBottom:YES];
+        }
     }
 }
+//- (void)adjustTableView
+//{
+//    CGRect rect = self.tableView.frame;
+//
+//    //tableview 的位置
+//    UIView *superView = self.tableView.superview;
+//    UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
+//    if (@available(iOS 11.0, *))
+//    {
+//        safeAreaInsets = superView.safeAreaInsets;
+//    }
+//
+//    CGFloat containerSafeHeight = self.tableView.superview.frame.size.height - safeAreaInsets.bottom;
+//
+//    rect.size.height = containerSafeHeight - self.inputView.toolBar.nim_height;
+//
+//
+//    //tableview 的内容 inset
+//    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+//    CGFloat visiableHeight = 0;
+//    if (@available(iOS 11.0, *))
+//    {
+//        contentInsets = self.tableView.adjustedContentInset;
+//    }
+//    else
+//    {
+//        contentInsets = self.tableView.contentInset;
+//    }
+//
+//    //如果气泡过少，少于总高度，输入框视图需要顶到最后一个气泡的下面。
+//    visiableHeight = visiableHeight + self.tableView.contentSize.height + contentInsets.top + contentInsets.bottom;
+//    visiableHeight = MIN(visiableHeight, rect.size.height);
+//
+//    rect.origin.y    = containerSafeHeight - visiableHeight - self.inputView.nim_height;
+//    rect.origin.y    = rect.origin.y > 0? 0 : rect.origin.y;
+//
+//
+//    BOOL tableChanged = !CGRectEqualToRect(self.tableView.frame, rect);
+//    if (tableChanged)
+//    {
+//        [self.tableView setFrame:rect];
+//        [self.tableView nim_scrollToBottom:YES];
+//    }
+//}
 
 #pragma mark - Notification
 - (void)menuDidHide:(NSNotification *)notification

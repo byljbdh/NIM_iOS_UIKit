@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "NIMGrowingInternalTextView.h"
 @class NIMGrowingTextView;
 
 @protocol NIMGrowingTextViewDelegate <NSObject>
@@ -46,7 +46,7 @@
 @property (nonatomic,assign) NSInteger maxNumberOfLines;
 
 @property (nonatomic,strong) UIView *inputView;
-
+@property (nonatomic,strong) NIMGrowingInternalTextView *textView;
 @end
 
 @interface NIMGrowingTextView(TextView)
