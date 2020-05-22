@@ -118,7 +118,7 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
         if (message.isDeleted)
         {
             continue;
-        }        
+        }
         NIMMessageModel *model = [[NIMMessageModel alloc] initWithMessage:message];
         model.shouldShowSelect = (_sessionState == NIMKitSessionStateSelect);
         if ([_sessionConfig respondsToSelector:@selector(disableSelectedForMessage:)]) {
@@ -453,15 +453,6 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
         dispatch_group_enter(group);
         [self.dataSource enhancedResetMessages:^(NSError *error, NSArray *models) {
             [self refreshAllAfterFetchCommentsByModels:models];
-            dispatch_group_leave(group);
-        }];
-        
-        dispatch_group_enter(group);
-        [self loadMessagePins:^(NSError *error) {
-            dispatch_group_leave(group);
-        }];
-        
-        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
             if([weakSelf.delegate respondsToSelector:@selector(didFetchMessageData)])
             {
                 [weakSelf.delegate didFetchMessageData];
@@ -471,7 +462,28 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
                     [weakSelf.dataSource checkAttachmentState:weakSelf.items];
                 }
             }
+            dispatch_group_leave(group);
+        }];
+        
+        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+            [self loadMessagePins:^(NSError *error) {
+            }];
         });
+//        dispatch_group_enter(group);
+//        [self loadMessagePins:^(NSError *error) {
+//            dispatch_group_leave(group);
+//        }];
+//        dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+//            if([weakSelf.delegate respondsToSelector:@selector(didFetchMessageData)])
+//            {
+//                [weakSelf.delegate didFetchMessageData];
+//
+//                if (![self.sessionConfig respondsToSelector:@selector(autoFetchAttachment)]
+//                    || self.sessionConfig.autoFetchAttachment) {
+//                    [weakSelf.dataSource checkAttachmentState:weakSelf.items];
+//                }
+//            }
+//        });
         
     }
 }
@@ -485,7 +497,7 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
 
 #pragma mark - 消息收发接口
 - (void)sendMessage:(NIMMessage *)message
-{    
+{
     [[[NIMSDK sharedSDK] chatManager] sendMessage:message toSession:_session error:nil];
     [self.layout dismissReplyContent];
 }
@@ -697,7 +709,7 @@ dispatch_queue_t NTESMessageDataPrepareQueue()
     [rootVC presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)onSendLocation:(NIMKitLocationPoint *)locationPoint{ 
+- (void)onSendLocation:(NIMKitLocationPoint *)locationPoint{
     NIMMessage *message = [NIMMessageMaker msgWithLocation:locationPoint];
     [self sendMessage:message toMessage:nil];
 }
