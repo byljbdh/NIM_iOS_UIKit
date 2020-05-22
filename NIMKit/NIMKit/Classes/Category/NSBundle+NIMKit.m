@@ -67,7 +67,7 @@
 
 + (NSString *)nim_EmojiPlistFile {
     NSBundle *bundle = [NIMKit sharedKit].emoticonBundle;
-    NSString *filepath = [bundle pathForResource:@"emoji_ios" ofType:@"plist" inDirectory:NIMKit_EmojiPath];
+    NSString *filepath = [bundle pathForResource:@"emoji" ofType:@"plist" inDirectory:NIMKit_EmojiPath];
     return filepath;
 }
 
