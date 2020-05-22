@@ -19,7 +19,6 @@
 
 static const void * const NTESDispatchMessageDataPrepareSpecificKey = &NTESDispatchMessageDataPrepareSpecificKey;
 
-typedef void(^NIMSessionInteractorHandler) (BOOL success, id result);
 
 dispatch_queue_t NTESMessageDataPrepareQueue()
 {

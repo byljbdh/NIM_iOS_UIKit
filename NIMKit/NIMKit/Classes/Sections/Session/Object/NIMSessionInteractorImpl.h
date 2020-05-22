@@ -37,6 +37,10 @@
 @property (nonatomic,assign) NIMKitSessionState sessionState;
 
 @property (nonatomic,strong) NIMMessage *referenceMessage;
+typedef void(^NIMSessionInteractorHandler) (BOOL success, id result);
 
+- (void)refreshAllChatExtendDatasByModels:(NSArray<NIMMessageModel *> *)models
+                               completion:(NIMSessionInteractorHandler)completion;
+- (void)insertMessages:(NSArray *)messages;
 - (void)processChatroomMessageModels;
 @end
