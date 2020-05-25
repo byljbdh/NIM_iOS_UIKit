@@ -25,7 +25,7 @@ const CGFloat NIMInputLineBoarder = .5f;
 
 @end
 
-#define sepColor NIMKit_UIColorFromRGB(0x8A8E93)
+#define sepColor NIMKit_UIColorFromRGB(0x13131B)
 
 @implementation NIMInputEmoticonTabView
 
