@@ -606,18 +606,29 @@
                  inView:(UIView *)view
 {
     BOOL handle = NO;
-    _messageForMenu = message;
-    [self.interactor setReferenceMessage:message];
-    if (![self becomeFirstResponder]) {
-        handle = NO;
-        return handle;
+    NSArray *items = [self menusItems:message];
+    if ([items count] && [self becomeFirstResponder]) {
+        UIMenuController *controller = [UIMenuController sharedMenuController];
+        controller.menuItems = items;
+        _messageForMenu = message;
+        [controller setTargetRect:view.bounds inView:view];
+        [controller setMenuVisible:YES animated:YES];
+        handle = YES;
     }
-    if ([self shouldShowMenuByMessage:message])
-    {
-        [self.advanceMenu showWithMessage:message];
-    }
-    handle = YES;
     return handle;
+//    BOOL handle = NO;
+//    _messageForMenu = message;
+//    [self.interactor setReferenceMessage:message];
+//    if (![self becomeFirstResponder]) {
+//        handle = NO;
+//        return handle;
+//    }
+//    if ([self shouldShowMenuByMessage:message])
+//    {
+//        [self.advanceMenu showWithMessage:message];
+//    }
+//    handle = YES;
+//    return handle;
 }
 
 
