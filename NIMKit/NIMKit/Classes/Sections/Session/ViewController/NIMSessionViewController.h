@@ -221,6 +221,10 @@
 - (void)setUpTitleView;
 - (id<NIMConversationManager>)conversationManager;
 - (void)uiCheckReceipt;
+
+- (void)copyText:(id)sender;
+
+- (void)deleteMsg:(id)sender;
 /**
  输入view初始化方法
  */
