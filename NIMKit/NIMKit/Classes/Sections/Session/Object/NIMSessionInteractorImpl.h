@@ -41,6 +41,10 @@ typedef void(^NIMSessionInteractorHandler) (BOOL success, id result);
 
 - (void)refreshAllChatExtendDatasByModels:(NSArray<NIMMessageModel *> *)models
                                completion:(NIMSessionInteractorHandler)completion;
+- (void)refreshAllChatExtendDatasByModel:(NIMMessageModel *)model
+                              completion:(NIMSessionInteractorHandler)completion;
 - (void)insertMessages:(NSArray *)messages;
 - (void)processChatroomMessageModels;
+- (void)refreshAllChatExtendDatasByMessage:(NIMMessage *)message;
+- (NIMMessage *)threadMessageOfMessage:(NIMMessage *)message;
 @end
