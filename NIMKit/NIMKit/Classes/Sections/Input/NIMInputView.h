@@ -73,4 +73,13 @@ typedef NS_ENUM(NSInteger, NIMAudioRecordPhase) {
 - (void)dismissReplyedContent;
 @property (nonatomic, weak) id<NIMSessionConfig> inputConfig;
 
+- (void)onTouchEmoticonBtn:(id)sender;
+- (void)onTouchMoreBtn:(id)sender;
+- (void)onTouchVoiceBtn:(id)sender;
+- (IBAction)onTouchRecordBtnDown:(id)sender;
+- (IBAction)onTouchRecordBtnUpInside:(id)sender;
+- (IBAction)onTouchRecordBtnUpOutside:(id)sender;
+
+- (IBAction)onTouchRecordBtnDragInside:(id)sender;
+- (IBAction)onTouchRecordBtnDragOutside:(id)sender;
 @end
