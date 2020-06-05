@@ -39,14 +39,14 @@
  *
  *  @discussion 可以更改文字的大小，颜色等属性，文案内容请使用 - (NSString *)sessionTitle 接口
  */
-@property (nonatomic, strong, readonly)    UILabel *titleLabel;
+@property (nonatomic, strong)    UILabel *titleLabel;
 
 /**
  *  会话页子标题
  *
  *  @discussion 可以更改文字的大小，颜色等属性，文案内容请使用 - (NSString *)sessionSubTitle 接口
  */
-@property (nonatomic, strong, readonly)    UILabel *subTitleLabel;
+@property (nonatomic, strong)    UILabel *subTitleLabel;
 
 
 /**
