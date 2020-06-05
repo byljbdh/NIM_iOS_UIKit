@@ -87,7 +87,7 @@
     
     [self setPlaying:self.isPlaying];
     
-    [self refreshBackground:data];
+//    [self refreshBackground:data];
 }
 
 - (void)refreshBackground:(NIMMessageModel *)data
