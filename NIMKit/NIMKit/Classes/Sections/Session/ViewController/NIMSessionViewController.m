@@ -29,9 +29,6 @@
 
 @property (nonatomic,readwrite) NIMMessage *messageForMenu;
 
-@property (nonatomic,strong)    UILabel *titleLabel;
-
-@property (nonatomic,strong)    UILabel *subTitleLabel;
 
 @property (nonatomic,strong)    NSIndexPath *lastVisibleIndexPathBeforeRotation;
 
