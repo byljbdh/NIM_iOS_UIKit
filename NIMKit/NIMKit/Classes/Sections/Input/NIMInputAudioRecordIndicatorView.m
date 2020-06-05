@@ -42,14 +42,14 @@
         
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _timeLabel.font = [UIFont boldSystemFontOfSize:NIMKit_TimeFontSize];
-        _timeLabel.textColor = [UIColor whiteColor];
+        _timeLabel.textColor = NIMKit_UIColorFromRGB(0x13131B);
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.text = @"00:00";
         [self addSubview:_timeLabel];
         
         _tipLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _tipLabel.font = [UIFont systemFontOfSize:NIMKit_TipFontSize];
-        _tipLabel.textColor = [UIColor whiteColor];
+        _tipLabel.textColor = NIMKit_UIColorFromRGB(0x13131B);
         _tipLabel.textAlignment = NSTextAlignmentCenter;
         _tipLabel.text = @"手指上滑，取消发送".nim_localized;
         [self addSubview:_tipLabel];
